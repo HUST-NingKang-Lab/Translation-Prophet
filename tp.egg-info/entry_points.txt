@@ -1,0 +1,2 @@
+[console_scripts]
+tp = tp.cli:main

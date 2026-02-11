@@ -1,0 +1,13 @@
+setup.py
+tp/__init__.py
+tp/cli.py
+tp/embedding.py
+tp/interpret.py
+tp/optimize-codon.py
+tp/predict.py
+tp/train.py
+tp.egg-info/PKG-INFO
+tp.egg-info/SOURCES.txt
+tp.egg-info/dependency_links.txt
+tp.egg-info/entry_points.txt
+tp.egg-info/top_level.txt
