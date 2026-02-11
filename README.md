@@ -4,7 +4,9 @@
 
 Translation-Prophet is a kinetic-aware translational framework that links translational kinetics to protein phenotypes across diverse applications. It enables accurate prediction, mechanistic interpretation, and synonymous codon sequence optimization. This repository provides pretrained Translation-Prophet model weights for predictive modeling and optimization of protein solubility in *Escherichia coli* (*E. coli*), along with flexible training scripts that can be readily adapted to other protein-related tasks.
 
-[Picture]
+<p align="center">
+  <img src="images/workflow.png" width="800">
+</p>
 
 ### Key Features
 
@@ -482,13 +484,12 @@ The corresponding EcoliBert and EcolimRNA-FM datasets can be accessed at Zenodo 
 
 ## Maintainer
 
-| Name            | Email                           | Organization                                                 |
-| :-------------- | :------------------------------ | :----------------------------------------------------------- |
-| **Zhiyong Wu**  | `wuzhiyong211@mails.ucas.ac.cn` | PhD student, Wuhan Institute of Virology, Chinese Academy of Sciences, University of Chinese Academy of Sciences |
-| **Haobo Zhang** | `haohongzh@gmail.com`           | PhD student, School of Life Science and Technology, Huazhong University of Science & Technology |
-| **Yangbo Hu**   | `ybhu@wh.iov.cn`                | Researcher, Wuhan Institute of Virology, Chinese Academy of Sciences |
-| **Kang Ning**   | `ningkang@hust.edu.cn`          | Professor, School of Life Science and Technology, Huazhong University of Science & Technology |
-
+| Name              | Email                           | Organization                                                 |
+| :---------------- | :------------------------------ | :----------------------------------------------------------- |
+| **Zhiyong Wu**    | `wuzhiyong211@mails.ucas.ac.cn` | PhD student, Wuhan Institute of Virology, Chinese Academy of Sciences, University of Chinese Academy of Sciences |
+| **Haohong Zhang** | `haohongzh@gmail.com`           | PhD student, School of Life Science and Technology, Huazhong University of Science & Technology |
+| **Yangbo Hu**     | `ybhu@wh.iov.cn`                | Researcher, Wuhan Institute of Virology, Chinese Academy of Sciences |
+| **Kang Ning**     | `ningkang@hust.edu.cn`          | Professor, School of Life Science and Technology, Huazhong University of Science & Technology |
 
 
 
