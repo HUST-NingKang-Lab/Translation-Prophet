@@ -259,13 +259,27 @@ def main():
     model.eval()
 
     all_preds, all_probs, all_labels = [], [], []
+    all_logit0, all_logit1 = [], []
+    all_prob0, all_prob1 = [], []
+
     with torch.no_grad():
         for batch_x, batch_y in dataset_loader:
             batch_x = [x.to(device) for x in batch_x]
+
             outputs = model(batch_x)
-            probs = torch.softmax(outputs, dim=1)[:, 1].cpu().numpy()
-            preds = torch.argmax(outputs, dim=1).cpu().numpy()
-            all_probs.extend(probs)
+
+            logits = outputs.detach().cpu().numpy()
+
+            probs = torch.softmax(outputs, dim=1).detach().cpu().numpy()
+
+            preds = torch.argmax(outputs, dim=1).detach().cpu().numpy()
+
+            all_logit0.extend(logits[:, 0])
+            all_logit1.extend(logits[:, 1])
+            all_prob0.extend(probs[:, 0])
+            all_prob1.extend(probs[:, 1])
+
+            all_probs.extend(probs[:, 1])
             all_preds.extend(preds)
             all_labels.extend(batch_y.numpy())
 
@@ -273,7 +287,32 @@ def main():
     all_probs = np.array(all_probs)
     all_labels = np.array(all_labels)
 
-    auc = roc_auc_score(all_labels, all_probs)
+    all_logit0 = np.array(all_logit0)
+    all_logit1 = np.array(all_logit1)
+    all_prob0 = np.array(all_prob0)
+    all_prob1 = np.array(all_prob1)
+
+    per_seq_df = pd.DataFrame({
+        "id": ids1,
+        "label": all_labels,
+        "pred": all_preds,
+        "logit0": all_logit0,
+        "logit1": all_logit1,
+        "prob0": all_prob0,
+        "prob1": all_prob1,
+        "margin_logit1_minus_logit0": all_logit1 - all_logit0
+    })
+
+    per_seq_path = os.path.join(out_dir, "per_sequence_predictions.csv")
+    per_seq_df.to_csv(per_seq_path, index=False)
+    print(f"Saved per-sequence predictions to: {per_seq_path}")
+
+    if len(np.unique(all_labels)) < 2:
+        auc = np.nan
+        print("Warning: only one class found in labels; AUC is set to NaN.")
+    else:
+        auc = roc_auc_score(all_labels, all_probs)
+
     acc = accuracy_score(all_labels, all_preds)
 
     TP = np.sum((all_labels == 1) & (all_preds == 1))
@@ -297,11 +336,6 @@ def main():
         "FPR": FPR,
         "FNR": FNR,
     }
-    
-    def summarize(metric):
-        values = [r[metric] for r in all_results]
-        return np.mean(values), np.std(values)
-
     pd.DataFrame([results]).to_csv(
         os.path.join(out_dir, "results.csv"),
         index=False
