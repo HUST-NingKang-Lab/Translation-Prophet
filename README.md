@@ -424,8 +424,8 @@ Optimize synonymous codon usage while preserving amino acid sequence.
 tp optimize_codon --help
 
 usage: tp [-h] [--gpu GPU] [--batch_size BATCH_SIZE] [--max_length MAX_LENGTH] [--seed SEED] [--window_size WINDOW_SIZE] [--step_size STEP_SIZE] [--k K]
-          --raw_fasta RAW_FASTA --model_file MODEL_FILE --out_dir OUT_DIR --protT5_embedding_model_dir PROTT5_EMBEDDING_MODEL_DIR
-          --syncodonlm_embedding_model_dir SYNCODONLM_EMBEDDING_MODEL_DIR
+          [--parallel_seqs PARALLEL_SEQS] [--dim_reducer_file DIM_REDUCER_FILE] --raw_fasta RAW_FASTA --model_file MODEL_FILE --out_dir OUT_DIR
+          [--protT5_embedding_model_dir PROTT5_EMBEDDING_MODEL_DIR] [--syncodonlm_embedding_model_dir SYNCODONLM_EMBEDDING_MODEL_DIR]
 
 Codon optimization using Translation-Prophet
 
@@ -442,6 +442,10 @@ optional arguments:
   --step_size STEP_SIZE
                         Step size for sliding window (default: 9)
   --k K                 Beam size: top-k sequences retained per window (default: 3)
+  --parallel_seqs PARALLEL_SEQS
+                        Number of FASTA sequences optimized together in one pooled inference loop (default: 1)
+  --dim_reducer_file DIM_REDUCER_FILE
+                        Path to dim reducer checkpoint (default: model/dim_reducers.pth)
   --raw_fasta RAW_FASTA
                         Input FASTA file containing nucleotide sequences
   --model_file MODEL_FILE
